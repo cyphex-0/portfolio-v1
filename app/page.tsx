@@ -1,8 +1,5 @@
-'use client';
-
-import React, { useState } from 'react';
-import Loader from '@/components/Loader';
-import CustomCursor from '@/components/CustomCursor';
+import React from 'react';
+import ClientBootstrapper from '@/components/ClientBootstrapper';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
@@ -12,35 +9,22 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
-    <>
-      {/* Cinematic intro loader */}
-      <Loader onComplete={() => setIsLoading(false)} />
+    <ClientBootstrapper>
+      {/* Floating glassmorphic header */}
+      <Navbar />
 
-      {/* Main app viewport */}
-      {!isLoading && (
-        <div className="relative min-h-screen bg-[#050505] overflow-x-hidden selection:bg-[#FF5C00] selection:text-white">
-          {/* Hardware-accelerated custom cursor */}
-          <CustomCursor />
+      {/* Content sections */}
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Contact />
+      </main>
 
-          {/* Floating glassmorphic header */}
-          <Navbar />
-
-          {/* Content sections */}
-          <main>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Contact />
-          </main>
-
-          {/* Minimal, elegant brand footer */}
-          <Footer />
-        </div>
-      )}
-    </>
+      {/* Minimal, elegant brand footer */}
+      <Footer />
+    </ClientBootstrapper>
   );
 }

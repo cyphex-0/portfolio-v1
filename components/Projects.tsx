@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ExternalLink, Github, X, Code, ShieldCheck, Cpu, ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 
 interface Project {
   id: string;
@@ -146,15 +147,12 @@ export default function Projects() {
               >
                 {/* Visual Glow overlay on hover */}
                 <div className="absolute inset-0 bg-[#FF5C00]/5 mix-blend-color-dodge opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
-                <img
+                <Image
                   src={project.image}
                   alt={project.title}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover filter grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200&h=800";
-                  }}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover filter grayscale contrast-105 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                 />
               </div>
 
@@ -260,15 +258,12 @@ export default function Projects() {
                 {/* Hero Image inside page */}
                 <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl border border-white/8 shadow-2xl relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] to-transparent opacity-40 z-10 pointer-events-none" />
-                  <img
+                  <Image
                     src={selectedProject.image}
                     alt={selectedProject.title}
-                    referrerPolicy="no-referrer"
-                    className="w-full h-full object-cover filter contrast-105"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.src = "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200&h=800";
-                    }}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 80vw"
+                    className="object-cover filter contrast-105"
                   />
                 </div>
 
