@@ -244,7 +244,7 @@ export default function Hero() {
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
-              className="px-4 py-3.5 rounded-full text-[#8A8A8A] hover:text-white font-display text-xs font-semibold tracking-widest uppercase transition-colors flex items-center gap-1.5"
+              className="px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/8 text-white font-display text-xs font-bold tracking-widest uppercase transition-all duration-300 flex items-center gap-2 group cursor-pointer"
               title="Resume Placeholder"
             >
               <FileText className="w-4 h-4 text-[#FF5C00]" />
