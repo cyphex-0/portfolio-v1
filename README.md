@@ -2,8 +2,6 @@
 
 A high-performance, cinematic portfolio showcasing intelligent systems, software architecture, and AI engineering. Built with the latest modern web technologies.
 
-![Portfolio Preview](/public/project-1.png) <!-- Update this path with an actual preview image of the portfolio -->
-
 ## ✨ Features
 
 - **Next.js 15 App Router:** Leveraging the latest React Server Components for optimal performance and SEO.
@@ -32,17 +30,20 @@ A high-performance, cinematic portfolio showcasing intelligent systems, software
 ### Installation
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/cyphex-0/portfolio-v1.git
    cd portfolio-v1
    ```
 
 2. **Install dependencies:**
+
    ```bash
    npm install
    ```
 
 3. **Run the development server:**
+
    ```bash
    npm run dev
    ```
@@ -62,7 +63,7 @@ A high-performance, cinematic portfolio showcasing intelligent systems, software
 
 ## 🌐 Contact Configuration
 
-The contact form is wired to use [FormSubmit.co](https://formsubmit.co). 
+The contact form is wired to use [FormSubmit.co](https://formsubmit.co).
 If you fork this repo, simply change the email in the `fetch` request inside `components/Contact.tsx` to your own email address, then submit the form once locally and click the "Activate" link sent to your inbox to enable it.
 
 ## 📄 License
