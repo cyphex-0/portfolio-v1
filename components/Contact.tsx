@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, MessageSquare } from 'lucide-react';
+import { Mail, MessageSquare, Phone } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -62,10 +62,10 @@ export default function Contact() {
       <div className="w-full max-w-6xl mx-auto relative z-10">
         
         {/* Form & Info Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
           {/* Left Column: Direct Transmissions Info */}
-          <div className="lg:col-span-5 h-full flex flex-col justify-between order-2 lg:order-1">
+          <div className="lg:col-span-5 flex flex-col order-2 lg:order-1">
             
             {/* Section Header */}
             <div>
@@ -99,7 +99,7 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="space-y-6 pt-10 mt-auto">
+            <div className="space-y-6 pt-10">
               {/* Email */}
               <motion.a 
                 href="mailto:contact.makhdum@gmail.com"
@@ -114,6 +114,24 @@ export default function Contact() {
                   <span className="block font-mono text-[9px] text-[#8A8A8A] uppercase tracking-wider">Email Dispatch</span>
                   <span className="font-display font-bold text-sm text-white hover:text-[#FF8A1D] transition-colors">
                     contact.makhdum@gmail.com
+                  </span>
+                </div>
+              </motion.a>
+
+              {/* Phone */}
+              <motion.a 
+                href="tel:+8801903458910"
+                whileHover={{ x: 6 }}
+                transition={{ duration: 0.2 }}
+                className="flex items-center space-x-4 p-4 bg-white/5 border border-white/5 hover:border-[#FF5C00]/20 rounded-2xl transition-all group"
+              >
+                <div className="w-12 h-12 bg-black rounded-xl border border-white/8 flex items-center justify-center group-hover:bg-[#FF5C00]/10 group-hover:border-[#FF5C00]/30 transition-all">
+                  <Phone className="w-5 h-5 text-[#FF5C00]" />
+                </div>
+                <div>
+                  <span className="block font-mono text-[9px] text-[#8A8A8A] uppercase tracking-wider">Phone</span>
+                  <span className="font-display font-bold text-sm text-white hover:text-[#FF8A1D] transition-colors">
+                    +880 1903458910
                   </span>
                 </div>
               </motion.a>
