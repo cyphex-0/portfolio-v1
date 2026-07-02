@@ -60,7 +60,7 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        className="fixed top-0 left-0 w-full z-50 flex justify-center px-4 md:px-8 py-6 pointer-events-none"
+        className="fixed top-0 left-0 w-full z-50 flex justify-end md:justify-center px-4 md:px-8 py-6 pointer-events-none"
         animate={{
           paddingTop: isScrolled ? '16px' : '24px',
           paddingBottom: isScrolled ? '16px' : '24px',
@@ -68,7 +68,7 @@ export default function Navbar() {
         transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
       >
         <div 
-          className="w-full max-w-5xl bg-black/40 backdrop-blur-md border border-white/8 rounded-full px-6 py-3 flex items-center justify-end md:grid md:grid-cols-[1fr_auto_1fr] pointer-events-auto transition-all duration-300 shadow-xl shadow-black/10"
+          className="w-auto md:w-full max-w-5xl bg-black/40 backdrop-blur-md border border-white/8 rounded-full p-2 md:px-6 md:py-3 flex items-center justify-center md:grid md:grid-cols-[1fr_auto_1fr] pointer-events-auto transition-all duration-300 shadow-xl shadow-black/10"
         >
           {/* Left Spacer for perfect center alignment */}
           <div className="hidden md:block" />
@@ -112,7 +112,7 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-1.5 rounded-full hover:bg-white/5 transition-all text-white border border-transparent hover:border-white/10"
+            className="md:hidden p-2 rounded-full hover:bg-white/5 transition-all text-white border border-transparent hover:border-white/10"
             aria-label="Toggle Menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5 text-[#FF5C00]" /> : <Menu className="w-5 h-5" />}
