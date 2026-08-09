@@ -49,30 +49,17 @@ export default function Projects() {
       improvements: 'Implement AI-based file categorization using a local LLM to sort files by semantic content rather than just file extensions.'
     },
     {
-      id: 'krypton-sql',
-      title: 'KRYPTON DB VISUALIZER (DEMO PROJECT)',
-      subtitle: 'High-Throughput Relational Query Engine',
-      category: 'BACKEND / SYSTEMS',
-      image: 'https://picsum.photos/seed/kryptonsql/1200/800',
-      demoUrl: '#',
-      githubUrl: 'https://github.com/cyphex-0',
-      tech: ['TypeScript', 'Express', 'PostgreSQL', 'Drizzle ORM', 'Redis', 'Docker'],
-      description: 'Krypton is a lightning-fast, secure database visualizer and schema inspector designed for cloud SQL instances. It scans relational databases, maps tables and constraints in real-time, and provides an interactive playground for DQL/DML queries with built-in speed analytics. All credentials are encrypted end-to-end and stored in a secure local vault.',
-      challenges: 'Visualizing ultra-complex database schemas with hundreds of foreign key relations caused major performance degradation on client browsers. I solved this by implementing a canvas-based spatial chunking algorithm that only renders elements in the active viewport, decreasing DOM node overhead by 80%.',
-      improvements: 'Add automatic SQL query optimization suggestions powered by Gemini models, helping developers automatically identify missing table indexes or unoptimized nested subqueries.'
-    },
-    {
-      id: 'solaris-ui',
-      title: 'SOLARIS IMMERSIVE CORE (DEMO PROJECT)',
-      subtitle: 'Luxury Motion and Interface Library',
-      category: 'FRONTEND ARCHITECTURE',
-      image: 'https://picsum.photos/seed/solaris/1200/800',
-      demoUrl: '#',
-      githubUrl: 'https://github.com/cyphex-0',
-      tech: ['React 19', 'Framer Motion', 'Tailwind CSS v4', 'GSAP', 'Next.js App Router'],
-      description: 'Solaris is a highly curated, premium UI library designed for creative developers building luxury portfolios and agency websites. It focuses heavily on high-end desktop fluid interactions, magnetic cursor tracking, asymmetrical editorial bento grids, and scroll-bound text transformations. All code blocks are highly reusable, lightweight, and compile cleanly without bloating bundle sizes.',
-      challenges: 'Synchronizing scroll indicators across multiple layers of parallax frames was difficult, often leading to visual jittering on mobile browsers. I engineered a custom hook to debounce scroll events, binding them to hardware-accelerated CSS transforms rather than triggers that force layout repaints.',
-      improvements: 'Support direct theme compilations inside the CLI, enabling developers to export specific micro-animations directly into custom theme systems in one terminal line.'
+      id: 'rentnest',
+      title: 'RENTNEST',
+      subtitle: 'MODERN RENTAL MARKETPLACE PLATFORM',
+      category: 'FULL-STACK APPLICATION / PROPERTY MANAGEMENT',
+      image: '/project-2.png',
+      demoUrl: 'https://buyrentnest.vercel.app/',
+      githubUrl: 'https://github.com/cyphex-0/RentNest',
+      tech: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL', 'Stripe'],
+      description: 'RentNest is a comprehensive, full-stack rental property marketplace built to seamlessly connect tenants, landlords, and platform administrators. It features dynamic, role-based dashboards where landlords can manage property listings and availability, while tenants can browse with advanced filtering, submit rental requests, and complete secure payments via Stripe. The platform ensures a high-performance experience with responsive design, secure JWT authentication, and optimized data management.',
+      challenges: 'Implementing secure, multi-tiered role-based access control (RBAC) across both the Next.js frontend middleware and the backend architecture. Additionally, managing the complex state of property availability and ensuring reliable payment processing required careful orchestration of Stripe webhooks to prevent booking conflicts and race conditions during simultaneous rental requests.',
+      improvements: 'Integrate an AI-powered recommendation engine to suggest properties to tenants based on their search history and saved preferences. Furthermore, implementing real-time WebSocket chat functionality between landlords and tenants would significantly streamline in-platform communication and user engagement.'
     }
   ];
 
