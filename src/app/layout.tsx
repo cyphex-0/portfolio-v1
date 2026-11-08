@@ -1,7 +1,8 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import { Inter, Outfit } from 'next/font/google';
 import './globals.css'; // Global styles
-import LenisProvider from '@/components/LenisProvider';
+import { LenisProvider } from '@/components/providers';
+import { SITE_CONFIG } from '@/config';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -16,11 +17,11 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Shah Makhdum | Software & AI Engineer',
-  description: 'An editorial, high-end portfolio showcasing intelligent systems, software architecture, and AI engineering by Shah Makhdum.',
+  title: SITE_CONFIG.title,
+  description: SITE_CONFIG.description,
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} scroll-smooth`}>
       <body className="bg-[#050505] text-white selection:bg-[#FF5C00] selection:text-white" suppressHydrationWarning>
@@ -32,4 +33,3 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     </html>
   );
 }
-

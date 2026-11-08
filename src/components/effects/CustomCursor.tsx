@@ -3,17 +3,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
-export default function CustomCursor() {
+export function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false);
   const [cursorType, setCursorType] = useState<'default' | 'pointer' | 'text' | 'project'>('default');
   const [isTouch, setIsTouch] = useState(true);
-  
+
   const cursorRef = useRef<HTMLDivElement>(null);
-  
+
   // Motion values for smooth custom cursor following physics
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
-  
+
   // Add springs for fluid elastic motion
   const springConfig = { damping: 30, stiffness: 350, mass: 0.5 };
   const cursorX = useSpring(mouseX, springConfig);
@@ -49,20 +49,20 @@ export default function CustomCursor() {
       if (!target) return;
 
       // Check if hovering over links/buttons
-      const isPointer = 
-        target.tagName === 'A' || 
-        target.tagName === 'BUTTON' || 
-        target.closest('a') !== null || 
+      const isPointer =
+        target.tagName === 'A' ||
+        target.tagName === 'BUTTON' ||
+        target.closest('a') !== null ||
         target.closest('button') !== null ||
         target.getAttribute('role') === 'button';
 
       // Check if hovering over project cards
       const isProjectCard = target.closest('[data-cursor="project"]') !== null;
-      
+
       // Check if hovering over text inputs or long-form copy
-      const isText = 
-        target.tagName === 'INPUT' || 
-        target.tagName === 'TEXTAREA' || 
+      const isText =
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
         target.closest('[data-cursor="text"]') !== null;
 
       if (isProjectCard) {
@@ -95,23 +95,26 @@ export default function CustomCursor() {
       style={{
         x: cursorX,
         y: cursorY,
-        border: cursorType === 'text' 
-          ? '1px solid #FFFFFF' 
-          : cursorType === 'project'
-          ? 'none'
-          : '1.5px solid #FF5C00',
-        backgroundColor: cursorType === 'pointer' 
-          ? 'rgba(255, 92, 0, 0.9)' 
-          : cursorType === 'project'
-          ? '#FFFFFF'
-          : 'transparent',
-        scale: cursorType === 'pointer' 
-          ? 1.5 
-          : cursorType === 'project'
-          ? 2.5
-          : cursorType === 'text'
-          ? 0.5
-          : 1,
+        border:
+          cursorType === 'text'
+            ? '1px solid #FFFFFF'
+            : cursorType === 'project'
+            ? 'none'
+            : '1.5px solid #FF5C00',
+        backgroundColor:
+          cursorType === 'pointer'
+            ? 'rgba(255, 92, 0, 0.9)'
+            : cursorType === 'project'
+            ? '#FFFFFF'
+            : 'transparent',
+        scale:
+          cursorType === 'pointer'
+            ? 1.5
+            : cursorType === 'project'
+            ? 2.5
+            : cursorType === 'text'
+            ? 0.5
+            : 1,
       }}
       animate={{
         width: cursorType === 'text' ? '2px' : '32px',
@@ -126,3 +129,5 @@ export default function CustomCursor() {
     </motion.div>
   );
 }
+
+export default CustomCursor;

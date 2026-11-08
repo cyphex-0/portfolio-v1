@@ -4,14 +4,14 @@ import React from 'react';
 import { ReactLenis } from 'lenis/react';
 import 'lenis/dist/lenis.css';
 
-interface LenisProviderProps {
+export interface LenisProviderProps {
   children: React.ReactNode;
 }
 
-export default function LenisProvider({ children }: LenisProviderProps) {
+export function LenisProvider({ children }: LenisProviderProps) {
   return (
-    <ReactLenis 
-      root 
+    <ReactLenis
+      root
       options={{
         duration: 1.2,
         lerp: 0.1,
@@ -25,3 +25,5 @@ export default function LenisProvider({ children }: LenisProviderProps) {
     </ReactLenis>
   );
 }
+
+export default LenisProvider;

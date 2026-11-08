@@ -2,14 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { LOADER_WORDS, LOADER_TIMING } from './data/loader.data';
 
-interface LoaderProps {
+export interface CinematicLoaderProps {
   onComplete: () => void;
 }
 
-const words = ["INTELLIGENCE", "STRUCTURE", "SYNERGY", "CRAFT", "ELEGANCE", "PERFORMANCE"];
-
-export default function Loader({ onComplete }: LoaderProps) {
+export function CinematicLoader({ onComplete }: CinematicLoaderProps) {
   const [progress, setProgress] = useState(0);
   const [wordIndex, setWordIndex] = useState(0);
   const [isDone, setIsDone] = useState(false);
@@ -30,9 +29,7 @@ export default function Loader({ onComplete }: LoaderProps) {
   useEffect(() => {
     // Increment loading percentage with custom ease
     let start = 0;
-    const duration = 2400; // 2.4 seconds total load
-    const intervalTime = 30;
-    const step = 100 / (duration / intervalTime);
+    const { duration, intervalTime, completionWait, exitAnimationWait, wordChangeInterval } = LOADER_TIMING;
 
     const timer = setInterval(() => {
       start += Math.random() * 3 + 1; // Variable steps for realism
@@ -43,16 +40,16 @@ export default function Loader({ onComplete }: LoaderProps) {
           setIsDone(true);
           setTimeout(() => {
             onComplete();
-          }, 800); // Wait for transition animation
-        }, 300);
+          }, exitAnimationWait); // Wait for transition animation
+        }, completionWait);
       }
       setProgress(Math.floor(start));
     }, intervalTime);
 
     // Cycle through words rapidly but elegantly
     const wordTimer = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
-    }, 350);
+      setWordIndex((prev) => (prev + 1) % LOADER_WORDS.length);
+    }, wordChangeInterval);
 
     return () => {
       clearInterval(timer);
@@ -67,9 +64,9 @@ export default function Loader({ onComplete }: LoaderProps) {
           id="cinematic-loader"
           className="fixed inset-0 bg-[#050505] z-[99999] flex flex-col justify-between p-10 md:p-16 select-none overflow-hidden"
           initial={{ opacity: 1 }}
-          exit={{ 
-            y: "-100%",
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+          exit={{
+            y: '-100%',
+            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] },
           }}
         >
           {/* Subtle glow background */}
@@ -97,9 +94,9 @@ export default function Loader({ onComplete }: LoaderProps) {
                   initial={{ y: 40, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: -40, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  transition={{ duration: 0.25, ease: 'easeOut' }}
                 >
-                  {words[wordIndex]}
+                  {LOADER_WORDS[wordIndex]}
                 </motion.span>
               </AnimatePresence>
             </div>
@@ -113,7 +110,7 @@ export default function Loader({ onComplete }: LoaderProps) {
                 Creative design meets cutting-edge machine intelligence.
               </p>
             </div>
-            
+
             {/* Big Elegant Counter */}
             <div className="flex items-baseline font-display text-[15vw] md:text-[8vw] font-black leading-none text-white tracking-tighter">
               <span>{progress.toString().padStart(3, '0')}</span>
@@ -128,3 +125,5 @@ export default function Loader({ onComplete }: LoaderProps) {
     </AnimatePresence>
   );
 }
+
+export default CinematicLoader;

@@ -1,5 +1,5 @@
 import React from 'react';
-import ClientBootstrapper from '@/components/ClientBootstrapper';
+import { ClientBootstrapper } from '@/components/effects';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
