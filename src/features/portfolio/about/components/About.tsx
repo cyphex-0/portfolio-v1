@@ -1,23 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "motion/react";
-import { MapPin, Coffee, Code2, Cpu, Compass } from "lucide-react";
+import React from 'react';
+import { motion } from 'motion/react';
+import { Compass, Coffee } from 'lucide-react';
+import { ABOUT_DATA } from '../data/about.data';
+import { AboutTimeline } from './AboutTimeline';
 
-export default function About() {
-  const timelineData = [
-    {
-      year: "2022",
-      title: "HSC",
-      description: "Govt BL College",
-    },
-    {
-      year: "Expected 2028",
-      title: "BSc in Computer Science",
-      description: "North Western University",
-    },
-  ];
-
+export function About() {
   return (
     <section
       id="about"
@@ -33,7 +22,7 @@ export default function About() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.6 }}
             className="flex items-center space-x-2.5 mb-4"
           >
@@ -46,12 +35,12 @@ export default function About() {
           <motion.h2
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: '-100px' }}
             transition={{ duration: 0.8, delay: 0.1 }}
             className="font-display font-black text-4xl md:text-6xl lg:text-7xl text-white tracking-tight uppercase"
           >
             WHERE SOFTWARE <br />
-            MEETS{" "}
+            MEETS{' '}
             <span className="text-stroke text-stroke-hover">INTELLIGENCE</span>
           </motion.h2>
         </div>
@@ -63,40 +52,23 @@ export default function About() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.8 }}
               className="font-display font-light text-2xl md:text-3xl lg:text-4xl leading-snug text-white/90"
             >
-              My name is Shah Makdum, a Software and AI Engineer who enjoys
-              building applications that are not only functional but also
-              intelligent.
+              {ABOUT_DATA.leadStatement}
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 1, delay: 0.2 }}
               className="space-y-6 text-[#8A8A8A] text-sm md:text-base leading-relaxed"
             >
-              <p>
-                My interest in programming started with a simple curiosity about
-                how software works. Over time, that curiosity grew into a
-                passion for creating scalable applications, exploring artificial
-                intelligence, and building systems that solve real-world
-                problems.
-              </p>
-
-              <p>
-                I enjoy working across the full stack, from designing clean
-                backend architectures and cloud-based solutions to developing
-                AI-powered applications using modern machine learning techniques
-                and large language models. I believe good software should be
-                reliable, efficient, and easy to maintain, and I always strive
-                to write clean, thoughtful code.
-              </p>
-
-
+              {ABOUT_DATA.paragraphs.map((p, i) => (
+                <p key={i}>{p}</p>
+              ))}
             </motion.div>
           </div>
 
@@ -109,39 +81,10 @@ export default function About() {
               EDUCATIONAL QUALIFICATION
             </h3>
 
-            <div className="space-y-12">
-              {timelineData.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="relative group pl-6"
-                >
-                  {/* Timeline point hover glowing ring */}
-                  <div className="absolute top-1.5 left-[-29px] w-3 h-3 rounded-full bg-[#050505] border border-[#8A8A8A] group-hover:border-[#FF5C00] group-hover:bg-[#FF5C00]/10 transition-all duration-300 z-10 flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 bg-[#8A8A8A] group-hover:bg-[#FF5C00] rounded-full transition-colors" />
-                  </div>
-
-                  {/* Year Tag */}
-                  <span className="inline-block font-mono text-xs font-bold text-[#FF5C00] mb-2 tracking-widest bg-[#FF5C00]/5 px-2 py-0.5 rounded border border-[#FF5C00]/10">
-                    {item.year}
-                  </span>
-
-                  {/* Text details */}
-                  <h4 className="font-display font-extrabold text-base text-white tracking-wide uppercase mb-1.5 transition-colors group-hover:text-[#FF8A1D]">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-[#8A8A8A] leading-relaxed max-w-md">
-                    {item.description}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
+            <AboutTimeline timeline={ABOUT_DATA.timeline} />
 
             {/* Side Stories: Travel & Food */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -160,13 +103,11 @@ export default function About() {
                   <div className="flex items-center space-x-2 text-white">
                     <Compass className="w-4 h-4 text-[#FF5C00]" />
                     <span className="font-display font-bold text-xs uppercase tracking-widest">
-                      Wanderlust
+                      {ABOUT_DATA.offlinePursuits[0].title}
                     </span>
                   </div>
                   <p className="text-xs text-[#8A8A8A] leading-relaxed">
-                    Outside of terminal windows, I explore geography. Traveling
-                    refreshes my mental scope, forcing me to appreciate diverse
-                    human perspectives and offline cultures.
+                    {ABOUT_DATA.offlinePursuits[0].description}
                   </p>
                 </div>
 
@@ -174,13 +115,11 @@ export default function About() {
                   <div className="flex items-center space-x-2 text-white">
                     <Coffee className="w-4 h-4 text-[#FF5C00]" />
                     <span className="font-display font-bold text-xs uppercase tracking-widest">
-                      Food Culture
+                      {ABOUT_DATA.offlinePursuits[1].title}
                     </span>
                   </div>
                   <p className="text-xs text-[#8A8A8A] leading-relaxed">
-                    An avid explorer of traditional food cultures. I see
-                    culinary arts as another form of design—perfect balance, raw
-                    passion, and meticulous ingredient orchestration.
+                    {ABOUT_DATA.offlinePursuits[1].description}
                   </p>
                 </div>
               </div>
@@ -191,3 +130,5 @@ export default function About() {
     </section>
   );
 }
+
+export default About;

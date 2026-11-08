@@ -17,20 +17,32 @@ export default defineConfig([
   // 2. Base Next.js configuration
   ...next,
 
-  // 3. Architectural Boundary Rules for src/
+  // 3a. Rule A: Shared components cannot import feature code
   {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["src/components/**/*.{ts,tsx}", "src/hooks/**/*.{ts,tsx}"],
     rules: {
       "no-restricted-imports": [
         "error",
         {
           patterns: [
-            // Rule A: Shared UI primitives cannot import feature code
             {
               group: ["@/features/**", "../features/**", "../../features/**"],
-              message: "Shared UI components cannot import feature-specific code. Keep UI primitives domain-agnostic."
-            },
-            // Rule B: Features cannot import private internals of other features
+              message: "Shared UI components and shared hooks cannot import feature-specific code. Keep UI primitives domain-agnostic."
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+  // 3b. Rule B: Features cannot import private internals of other features
+  {
+    files: ["src/features/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
             {
               group: [
                 "@/features/*/**",
@@ -47,7 +59,7 @@ export default defineConfig([
     }
   },
 
-  // 4. Strict isolation for Data, Config, and Types
+  // 4. Rule C: Strict isolation for Data, Config, and Types
   {
     files: ["src/**/data/**/*.ts", "src/config/**/*.ts", "src/types/**/*.ts"],
     rules: {
@@ -65,7 +77,6 @@ export default defineConfig([
             }
           ],
           patterns: [
-            // Rule C: Models & Config cannot import React or UI components
             {
               group: [
                 "@/components/**",

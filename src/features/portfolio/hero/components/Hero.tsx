@@ -5,6 +5,9 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowDown, Github, Linkedin, FileText, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import profilePic from '@/assets/shah_makhdum.jpg';
+import { useScrollToSection } from '@/hooks/useScrollToSection';
+import { PROFILE_CONFIG } from '@/config/profile.config';
+import { HERO_DATA } from '../data/hero.data';
 
 const headingContainerVariants = {
   hidden: {},
@@ -17,66 +20,52 @@ const headingContainerVariants = {
 };
 
 const wordVariants = {
-  hidden: { 
-    y: "115%", 
+  hidden: {
+    y: '115%',
     rotateX: 12,
     skewY: 2,
     opacity: 0,
   },
-  visible: { 
-    y: "0%", 
+  visible: {
+    y: '0%',
     rotateX: 0,
     skewY: 0,
     opacity: 1,
-    transition: { 
-      duration: 1.1, 
+    transition: {
+      duration: 1.1,
       ease: [0.16, 1, 0.3, 1] as const,
     },
   },
 };
 
-export default function Hero() {
+export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
-  
+  const { scrollToSection } = useScrollToSection();
+
   // Connect typography transitions directly to page scroll
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start'],
   });
 
   // Calculate high-end scroll-bound offsets
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '80%']);
   const textScale = useTransform(scrollYProgress, [0, 0.8], [1, 0.85]);
   const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
   const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
 
   const handleScrollToWork = () => {
-    const element = document.getElementById('projects');
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const topOffset = elementPosition - 100;
-      window.scrollTo({
-        top: topOffset,
-        behavior: 'smooth',
-      });
-    }
+    scrollToSection('projects');
   };
 
-  const handleScrollToContact = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const topOffset = elementPosition - 100;
-      window.scrollTo({
-        top: topOffset,
-        behavior: 'smooth',
-      });
-    }
+  const handleScrollToContact = (e: React.MouseEvent) => {
+    e.preventDefault();
+    scrollToSection('contact');
   };
 
   return (
-    <section 
+    <section
       id="home"
       ref={containerRef}
       className="relative min-h-[100vh] w-full bg-[#050505] flex items-center justify-center overflow-hidden pt-24 pb-16 px-4 md:px-8 lg:px-16"
@@ -93,12 +82,12 @@ export default function Hero() {
           x: [0, 45, -30, 0],
           y: [0, -50, 30, 0],
           rotate: [0, 120, 240, 360],
-          scale: [1, 1.15, 0.9, 1]
+          scale: [1, 1.15, 0.9, 1],
         }}
         transition={{
           duration: 22,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       />
 
@@ -113,7 +102,7 @@ export default function Hero() {
         transition={{
           duration: 28,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       >
         {/* Inner concentric ring with accent border */}
@@ -129,18 +118,17 @@ export default function Hero() {
           x: [0, -60, 40, 0],
           y: [0, 30, -30, 0],
           rotate: [-15, 5, -25, -15],
-          scale: [1, 1.1, 0.95, 1]
+          scale: [1, 1.1, 0.95, 1],
         }}
         transition={{
           duration: 25,
           repeat: Infinity,
-          ease: "easeInOut"
+          ease: 'easeInOut',
         }}
       />
 
       {/* Hero Content Container */}
       <div className="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        
         {/* Left Side: Massive Typography & Introduction */}
         <div className="lg:col-span-7 flex flex-col justify-center text-left order-2 lg:order-1">
           {/* Tagline */}
@@ -151,17 +139,21 @@ export default function Hero() {
             className="flex items-center space-x-2.5 mb-6"
           >
             <span className="w-2 h-2 bg-[#FF5C00] rounded-full animate-ping" />
-            <span className="font-mono text-xs text-[#FF5C00] font-bold tracking-[0.25em] uppercase">SHAH MAKHDUM</span>
+            <span className="font-mono text-xs text-[#FF5C00] font-bold tracking-[0.25em] uppercase">
+              {HERO_DATA.tagline.badge}
+            </span>
             <span className="text-white/20 text-xs">|</span>
-            <span className="font-mono text-[10px] text-[#8A8A8A] tracking-wider uppercase">BASED IN BANGLADESH</span>
+            <span className="font-mono text-[10px] text-[#8A8A8A] tracking-wider uppercase">
+              {HERO_DATA.tagline.location}
+            </span>
           </motion.div>
 
           {/* Big Editorial Headline */}
-          <motion.div 
+          <motion.div
             style={{ y: textY, scale: textScale, opacity: textOpacity }}
             className="mb-8"
           >
-            <motion.h1 
+            <motion.h1
               variants={headingContainerVariants}
               initial="hidden"
               whileInView="visible"
@@ -170,27 +162,24 @@ export default function Hero() {
               style={{ perspective: 1000 }}
             >
               <span className="block overflow-hidden py-1">
-                <motion.span 
-                  variants={wordVariants} 
-                  className="block origin-left"
-                >
-                  BUILDING
+                <motion.span variants={wordVariants} className="block origin-left">
+                  {HERO_DATA.headline.line1}
                 </motion.span>
               </span>
               <span className="block overflow-hidden py-1">
-                <motion.span 
-                  variants={wordVariants} 
+                <motion.span
+                  variants={wordVariants}
                   className="block text-stroke text-stroke-hover origin-left"
                 >
-                  INTELLIGENT
+                  {HERO_DATA.headline.line2}
                 </motion.span>
               </span>
               <span className="block overflow-hidden py-1">
-                <motion.span 
-                  variants={wordVariants} 
+                <motion.span
+                  variants={wordVariants}
                   className="block text-[#FF5C00] flex items-center gap-2 origin-left"
                 >
-                  SYSTEMS
+                  {HERO_DATA.headline.line3}
                   <span className="w-4 h-4 md:w-8 md:h-8 bg-[#FF5C00] rounded-full inline-block animate-pulse align-middle" />
                 </motion.span>
               </span>
@@ -206,7 +195,7 @@ export default function Hero() {
           >
             <div className="h-[1px] w-8 md:w-12 bg-gradient-to-r from-[#FF5C00] to-transparent" />
             <span className="font-mono text-[10px] md:text-xs text-[#8A8A8A] font-semibold tracking-[0.3em] uppercase">
-              Full Stack Developer
+              {HERO_DATA.role}
             </span>
           </motion.div>
 
@@ -227,20 +216,13 @@ export default function Hero() {
 
             <a
               href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById('contact');
-                if (el) {
-                  const elementPosition = el.getBoundingClientRect().top + window.scrollY;
-                  window.scrollTo({ top: elementPosition - 100, behavior: 'smooth' });
-                }
-              }}
+              onClick={handleScrollToContact}
               className="px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/8 text-white font-display text-xs font-bold tracking-widest uppercase transition-all duration-300 flex items-center gap-2 group cursor-pointer"
             >
               <span>Let&apos;s Build</span>
               <span className="w-1.5 h-1.5 bg-[#FFD66B] rounded-full animate-ping" />
             </a>
-            
+
             <a
               href="#"
               onClick={(e) => e.preventDefault()}
@@ -259,20 +241,20 @@ export default function Hero() {
             transition={{ delay: 0.6, duration: 1 }}
             className="flex items-center space-x-6"
           >
-            <a 
-              href="https://github.com/cyphex-0" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={PROFILE_CONFIG.socialLinks.github.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#8A8A8A] hover:text-[#FF5C00] transition-colors flex items-center space-x-2 text-xs font-mono tracking-wider"
             >
               <Github className="w-4 h-4" />
               <span>GITHUB</span>
             </a>
             <span className="text-white/10 text-xs">/</span>
-            <a 
-              href="https://www.linkedin.com/in/shahmakhdum/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={PROFILE_CONFIG.socialLinks.linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-[#8A8A8A] hover:text-[#FF5C00] transition-colors flex items-center space-x-2 text-xs font-mono tracking-wider"
             >
               <Linkedin className="w-4 h-4" />
@@ -283,7 +265,6 @@ export default function Hero() {
 
         {/* Right Side: Portrait Image inside a cinematic lighting frame */}
         <div className="lg:col-span-5 flex justify-center items-center order-1 lg:order-2 relative">
-          
           {/* Complex backdrop warm glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full sunset-glow-strong opacity-45 blur-2xl pointer-events-none" />
 
@@ -297,17 +278,17 @@ export default function Hero() {
           >
             {/* Subtle glow rim lighting border */}
             <div className="absolute inset-0 border border-transparent group-hover:border-[#FF5C00]/20 rounded-2xl pointer-events-none transition-all duration-700 z-30" />
-            
+
             {/* Warm Sunset/Cyberpunk Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#FF5C00]/5 to-transparent mix-blend-color-dodge opacity-60 z-10 transition-opacity duration-500 group-hover:opacity-80" />
-            
+
             {/* Noise texture specifically inside frame */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,92,0,0.1),transparent_50%)] z-10" />
 
             <div className="w-full h-full relative z-0 scale-100 transition-all duration-1000 group-hover:scale-105">
               <Image
                 src={profilePic}
-                alt="Shah Makhdum"
+                alt={PROFILE_CONFIG.name}
                 fill
                 placeholder="blur"
                 priority
@@ -318,12 +299,18 @@ export default function Hero() {
             {/* Bottom floating details card inside image */}
             <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 p-4 rounded-xl z-20 flex justify-between items-center transition-all duration-500 group-hover:bg-[#0F1115]/85 group-hover:border-[#FF5C00]/30">
               <div>
-                <span className="block text-white font-display text-xs font-bold tracking-wider">SHAH MAKHDUM</span>
-                <span className="block text-[9px] text-[#8A8A8A] uppercase tracking-widest font-mono">SYS_AI_ARCHITECT</span>
+                <span className="block text-white font-display text-xs font-bold tracking-wider">
+                  {HERO_DATA.portraitCard.name}
+                </span>
+                <span className="block text-[9px] text-[#8A8A8A] uppercase tracking-widest font-mono">
+                  {HERO_DATA.portraitCard.role}
+                </span>
               </div>
               <div className="flex items-center space-x-1">
                 <span className="w-1.5 h-1.5 bg-[#FF5C00] rounded-full" />
-                <span className="text-[8px] text-[#FF5C00] font-mono tracking-widest font-bold">100% DISCIPLINE</span>
+                <span className="text-[8px] text-[#FF5C00] font-mono tracking-widest font-bold">
+                  {HERO_DATA.portraitCard.badge}
+                </span>
               </div>
             </div>
           </motion.div>
@@ -340,7 +327,7 @@ export default function Hero() {
         <span className="font-mono text-[9px] text-[#8A8A8A] tracking-[0.3em] uppercase">SCROLL</span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
         >
           <ArrowDown className="w-3.5 h-3.5 text-[#FF5C00]" />
         </motion.div>
@@ -348,3 +335,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default Hero;
